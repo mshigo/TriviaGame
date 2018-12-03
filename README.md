@@ -1,1 +1,2 @@
 # TriviaGame
+Test your knowledge of the Premier League with these 6 trivia questions. Once you hit the start button, the questions will appear on the screen. You have 60 seconds to answer all questions. Results will be displayed once the timer reaches 0, or if you hit the done button. If you are able to answer at least half (3) of the questions correctly, congrats, you passed!
