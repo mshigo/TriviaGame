@@ -50,8 +50,45 @@ var trivia = {
     correct: 0,
     incorrect: 0,
 
+    //countdown function
+    countdown: function() {
+        trivia.counter--;
+        $("#timer").html(trivia.counter);
+        if (trivia.counter === 0) {
+            alert("Time's Up!");
+            trivia.done;
+        }
+    },
     //start function
     start: function() {
+        $("#start").remove();
+        timer = setInterval(trivia.countdown, 1000);
+        $("#main").prepend("<h2>Time remaining: <span id='timer'>60</span> seconds</h2>");
 
+        for (var i = 0; i < questionsArr.length; i++) {
+            $("#trivia").append("<h2>" + questionsArr[i].question + "</h2>");
+            for (var j = 0; j < questionsArr.answers.length; j++) {
+                $("#trivia").append("<input type='radio' name='Question #'" + i + "' value='" + questionsArr[i].answers[j] + ">" + questionsArr[i].answers[j]);
+            }
+        }
+        $("#trivia").append("<button id='done'>Done!</button>");
+    },
+    //done function
+    done: function() {
+        var input = $("#trivia").children("input: checked");
+
+        for (var i = 0; i < input.length; i++) {
+            if ($(input[i]).val() === questionsArr[i].correctAnswer) {
+                trivia.correct++;
+            }
+            else {
+                trivia.incorrect++;
+            }
+        }
+        clearInterval(timer);
+        $("#main h2").remove();
+        $("#main").html("<h2>Finished!</h2>");
+        $("#main").append("<h3>Correct answers: " + this.correct + "<h/3>");
+        $("#main").append("<h3>Incorrect answers: " + this.incorrect + "</h3>");
     }
 }
