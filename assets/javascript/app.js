@@ -7,6 +7,7 @@ $(document).on("click", "#done", function() {
     trivia.done();
 });
 
+
 //questions array
 var questionsArr = [
     {
@@ -41,9 +42,6 @@ var questionsArr = [
     }
 ];
 
-//timer for setInterval
-var timer;
-
 //Trivia object
 var trivia = {
     counter: 60,
@@ -55,27 +53,27 @@ var trivia = {
         trivia.counter--;
         $("#timer").html(trivia.counter);
         if (trivia.counter === 0) {
-            alert("Time's Up!");
-            trivia.done;
+            self.stop();
+            trivia.done();
         }
     },
     //start function
     start: function() {
         $("#start").remove();
-        timer = setInterval(trivia.countdown, 1000);
+        var timer = setInterval(trivia.countdown, 1000);
         $("#main").prepend("<h2>Time remaining: <span id='timer'>60</span> seconds</h2>");
 
         for (var i = 0; i < questionsArr.length; i++) {
             $("#trivia").append("<h2>" + questionsArr[i].question + "</h2>");
-            for (var j = 0; j < questionsArr.answers.length; j++) {
-                $("#trivia").append("<input type='radio' name='Question #'" + i + "' value='" + questionsArr[i].answers[j] + ">" + questionsArr[i].answers[j]);
+            for (var j = 0; j < questionsArr[i].answers.length; j++) {
+                $("#trivia").append("<input type='radio' name='Question #" + i + "' value='" + questionsArr[i].answers[j] + "''>" + questionsArr[i].answers[j]);
             }
         }
         $("#trivia").append("<button id='done'>Done!</button>");
     },
     //done function
     done: function() {
-        var input = $("#trivia").children("input: checked");
+        var input = $("#trivia").children("input:checked");
 
         for (var i = 0; i < input.length; i++) {
             if ($(input[i]).val() === questionsArr[i].correctAnswer) {
@@ -90,5 +88,11 @@ var trivia = {
         $("#main").html("<h2>Finished!</h2>");
         $("#main").append("<h3>Correct answers: " + this.correct + "<h/3>");
         $("#main").append("<h3>Incorrect answers: " + this.incorrect + "</h3>");
+
+        if (this.correct >= 3) {
+            $("#main").append("<h3>Congrats, you passed!</h3>");
+        } else {
+            $("#main").append("<h3>Sorry, you failed. Please try again.</h3>");
+        }
     }
 }

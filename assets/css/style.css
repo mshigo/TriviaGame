@@ -1,0 +1,20 @@
+#main {
+    width: 1240px;
+    background-color: lightblue;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#trivia {
+    position: fixed;
+}
+
+h1 {
+    color: blue;
+    font-weight: bold;
+}
+
+body {
+    background-image: url("../images/Soccerball_background.jpg");
+    text-align: center;
+}
